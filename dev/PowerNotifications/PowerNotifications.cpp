@@ -59,8 +59,8 @@ namespace winrt::Microsoft::ProjectReunion::implementation
     {
         auto batteryStatus = &make_self<factory_implementation::PowerManager>()->m_cachedCompositeBatteryStatus;
         check_hresult(PowerNotifications_GetCompositeBatteryStatus(batteryStatus));
-        // A value higher than the maximum possible indicates junk default values
-        if (batteryStatus->Status.PowerState <= 0x000F)
+        // A zero indicates a zero length payload from the underlying implementation
+        if (batteryStatus->Status.PowerState != 0)
         {
             make_self<factory_implementation::PowerManager>()->ProcessCompositeBatteryStatus(
                 make_self<factory_implementation::PowerManager>()->m_cachedCompositeBatteryStatus);

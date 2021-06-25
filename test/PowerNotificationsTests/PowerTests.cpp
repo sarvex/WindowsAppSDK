@@ -79,14 +79,14 @@ namespace ProjectReunionPowerTests
 
         TEST_METHOD(EnergySaverStatusCallback)
         {
-            auto stat = EnergySaverStatus::Disabled;
+            auto stat = EnergySaverStatus::On;
             auto token = PowerManager::EnergySaverStatusChanged([&](const auto&, winrt::Windows::Foundation::IInspectable obj)
             {
                 stat = PowerManager::EnergySaverStatus();
             });
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
             PowerManager::EnergySaverStatusChanged(token);
-            VERIFY_ARE_EQUAL(stat, EnergySaverStatus::Off);
+            VERIFY_ARE_EQUAL(stat, EnergySaverStatus::Disabled);
         }
 
         TEST_METHOD(GetPowerSourceKind)
