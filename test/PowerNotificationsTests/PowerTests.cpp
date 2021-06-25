@@ -22,17 +22,17 @@ namespace ProjectReunionPowerTests
         TEST_METHOD(GetBatteryStatus)
         {
             auto stat = PowerManager::BatteryStatus();
-            VERIFY_ARE_EQUAL(stat, BatteryStatus::Discharging);
+            VERIFY_ARE_EQUAL(stat, BatteryStatus::NotPresent);
         }
         TEST_METHOD(GetPowerSupplyStatus)
         {
             auto stat = PowerManager::PowerSupplyStatus();
-            VERIFY_ARE_EQUAL(stat, PowerSupplyStatus::Inadequate);
+            VERIFY_ARE_EQUAL(stat, PowerSupplyStatus::Adequate);
         }
         TEST_METHOD(GetRemainingChargePercent)
         {
             auto stat = PowerManager::RemainingChargePercent();
-            VERIFY_ARE_EQUAL(stat, 77);
+            VERIFY_ARE_EQUAL(stat, 100);
         }
 
         TEST_METHOD(CompositeBatteryStatusCallback)
@@ -84,7 +84,7 @@ namespace ProjectReunionPowerTests
             {
                 stat = PowerManager::EnergySaverStatus();
             });
-            std::this_thread::sleep_for(std::chrono::milliseconds(10000));
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
             PowerManager::EnergySaverStatusChanged(token);
             VERIFY_ARE_EQUAL(stat, EnergySaverStatus::Off);
         }
